@@ -1,9 +1,13 @@
 <template>
-  <div></div>
+  <main class="flex min-h-screen flex-1 justify-between">
+    <Sidebar />
+  </main>
 </template>
 
 <script>
-export default {};
-</script>
+import Sidebar from "@/components/Sidebar";
 
-<style lang="scss" scoped></style>
+export default {
+  components: { Sidebar },
+};
+</script>
