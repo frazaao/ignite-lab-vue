@@ -14,6 +14,7 @@
             :selected="getActiveLesson === lesson.id"
             :type="lesson.lessonType"
             :available="lesson.available"
+            :data="lesson"
           />
         </li>
       </ul>

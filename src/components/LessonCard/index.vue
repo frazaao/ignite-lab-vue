@@ -1,6 +1,6 @@
 <template>
   <div class="mt-6">
-    <span class="text-gray-300">Domingo - 20 de junho - 19h00</span>
+    <span class="text-gray-300">{{ availableAt }}</span>
 
     <a
       class="flex flex-col border rounded border-gray-600 p-4"
@@ -65,6 +65,7 @@ export default {
     selected: { type: Boolean, default: false },
     type: { type: String, default: "live" },
     available: { type: Boolean, default: false },
+    data: { type: Object, required: true },
   },
 
   data() {
@@ -85,6 +86,12 @@ export default {
     lessonAvailable() {
       const available = this.available ? "Conteúdo liberado" : "Em breve";
       return available;
+    },
+
+    availableAt() {
+      const available = new Date(this.data.availableAt);
+
+      return available.toLocaleDateString("pt-BR");
     },
   },
 };
