@@ -8,12 +8,12 @@
     <hr class="border-gray-600" />
     <nav>
       <ul>
-        <li v-for="lesson in lessons" :key="lesson.id">
+        <li v-for="lesson in getLessons" :key="lesson.id">
           <LessonCard
             @click="handleSelect(lesson.id)"
-            :selected="activeLesson === lesson.id"
-            type="Lesson"
-            :available="true"
+            :selected="getActiveLesson === lesson.id"
+            :type="lesson.lessonType"
+            :available="lesson.available"
           />
         </li>
       </ul>
@@ -23,33 +23,25 @@
 
 <script>
 import LessonCard from "../LessonCard/index.vue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "SidebarComponent",
   components: { LessonCard },
 
   data() {
-    const state = {
-      lessons: [
-        { id: 1, available: true, type: "Lesson", selected: false },
-        { id: 2, available: true, type: "Live", selected: false },
-        { id: 3, available: false, type: "Lesson", selected: false },
-      ],
-
-      activeLesson: 0,
-    };
+    const state = {};
 
     return state;
   },
 
+  computed: {
+    ...mapGetters(["getLessons", "getActiveLesson"]),
+  },
+
   methods: {
     handleSelect(id) {
-      const activeLesson = this.lessons.find((lesson) => {
-        return lesson.id == id;
-      });
-
-      console.log(activeLesson);
-
-      this.activeLesson = activeLesson.id;
+      this.$store.dispatch("setActiveLesson", id);
     },
   },
 };

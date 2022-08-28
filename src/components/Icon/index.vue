@@ -4,9 +4,11 @@
 
 <script>
 import CheckCircle from "./CheckCircle.vue";
+import Lock from "./Lock.vue";
+
 export default {
   name: "IconComponent",
-  components: { CheckCircle },
+  components: { CheckCircle, Lock },
   props: {
     name: { type: String, required: true },
   },

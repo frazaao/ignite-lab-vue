@@ -2,12 +2,17 @@
   <div class="mt-6">
     <span class="text-gray-300">Domingo - 20 de junho - 19h00</span>
 
-    <div
+    <a
       class="flex flex-col border rounded border-gray-600 p-4"
-      :class="{ 'bg-green-500': selected }"
+      :class="{
+        'bg-green-500': selected,
+        'cursor-pointer': available,
+        'cursor-not-allowed': !available,
+      }"
     >
       <div class="flex justify-between items-center">
         <span
+          v-if="available"
           class="text-sm flex items-center gap-2 font-semibold"
           :class="{ 'text-gray-100': selected, 'text-blue-500': !selected }"
         >
@@ -19,10 +24,22 @@
         </span>
 
         <span
+          v-else
+          class="text-sm flex items-center gap-2 font-semibold"
+          :class="{ 'text-gray-100': selected, 'text-orange-500': !selected }"
+        >
+          <Icon
+            name="Lock"
+            :color="selected ? color.gray[100] : color.orange[500]"
+          />
+          {{ lessonAvailable }}
+        </span>
+
+        <span
           class="text-xs border border-green-300 px-2 rounded font-bold py-[2px]"
           :class="{
-            'text-gray-100': type === 'Lesson',
-            'text-green-300': type === 'Live',
+            'text-gray-100': type === 'class',
+            'text-green-300': type === 'live',
           }"
         >
           {{ lessonType }}
@@ -31,7 +48,7 @@
       <span class="mt-4 text-gray-100 font-bold">
         Abertura do evento Ignite Lab
       </span>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -46,7 +63,7 @@ export default {
 
   props: {
     selected: { type: Boolean, default: false },
-    type: { type: String, default: "Live" },
+    type: { type: String, default: "live" },
     available: { type: Boolean, default: false },
   },
 
@@ -61,7 +78,7 @@ export default {
 
   computed: {
     lessonType() {
-      const type = this.type === "Live" ? "AO VIVO" : "AULA PRÁTICA";
+      const type = this.type === "live" ? "AO VIVO" : "AULA PRÁTICA";
       return type;
     },
 
