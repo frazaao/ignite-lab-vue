@@ -3,13 +3,17 @@
     <span class="text-gray-300">{{ availableAt }}</span>
 
     <a
-      class="flex flex-col border rounded border-gray-600 p-4"
+      class="flex flex-col border rounded border-gray-600 p-4 relative hover:border-green-500 transition-colors"
       :class="{
-        'bg-green-500': selected,
+        'bg-green-500 border-green-500': selected,
         'cursor-pointer': available,
         'cursor-not-allowed': !available,
       }"
     >
+      <span
+        v-if="selected"
+        class="absolute w-4 h-4 rotate-45 left-[-.5rem] bg-green-500"
+      ></span>
       <div class="flex justify-between items-center">
         <span
           v-if="available"
